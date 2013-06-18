@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <conio.h>
+
 #define ESTADOS_MAX 20
 #define SIMBOLOS_MAX 30
 
@@ -16,7 +16,7 @@ char move(char estado, char caracter);
 int match (char *cadena);
 //Funciones	
 void cargar_tabla() {
-	//Llenar todos los campos de la tabla con un valor convención, tipo ‘*’. Va a servir.
+	//Llenar todos los campos de la tabla con un valor convenciï¿½n, tipo ï¿½*ï¿½. Va a servir.
 	int i=0, j =0, k =0;
 	for (i=0,i<=ESTADOS_MAX,)
 	while (1) {
@@ -37,10 +37,10 @@ char move(estado, caracter) {
 int match (char *cadena) { //Devuelve 0 si la cadena pasada coincide con el AFD.
 	char estado_actual;
 	estado_actual = move(estado_inicial, cadena [0];
-	if estado_actual == ‘*’ return 0; //El asterisco es una convención.
+	if estado_actual == ï¿½*ï¿½ return 0; //El asterisco es una convenciï¿½n.
 	for (i = 1; i < len(cadena) - 1; i++) {
 		estado_actual = move(estado_actual, cadena[i]);
-		if estado_actual == ‘*’ return 0;
+		if estado_actual == ï¿½*ï¿½ return 0;
 	}
 	return 1;
 }
