@@ -18,7 +18,9 @@ int match (char *cadena);
 void cargar_tabla() {
 	//Llenar todos los campos de la tabla con un valor convención, tipo ‘*’. Va a servir.
 	int i=0, j =0, k =0;
-	for (i=0,i<=ESTADOS_MAX,)
+	for (i=0;i<=ESTADOS_MAX; i++){
+		
+	}
 	while (1) {
 		Leer estado
 		if (estado == Enter key) break;
