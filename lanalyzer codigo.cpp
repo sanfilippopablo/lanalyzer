@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <conio.h>
 #define ESTADOS_MAX 20
 #define SIMBOLOS_MAX 30
 //
