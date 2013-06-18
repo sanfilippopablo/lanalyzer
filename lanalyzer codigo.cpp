@@ -2,25 +2,35 @@
 #include <conio.h>
 #define ESTADOS_MAX 20
 #define SIMBOLOS_MAX 30
-
+//
 //Estructuras de datos
+//
 struct transicion {
 	char estado_origen;
 	char move[SIMBOLOS_MAX][2]; // move[ i ][0] representa el simbolo, move[ i ][1] representa el estado destino.
 }
 struct transicion tabla[ESTADOS_MAX];
+//
 //Prototipos
+//
 int existe_estado(char estado); //Devuelve 1 si el estado ya existe en la tabla, else 0.
 void cargar_tabla;
 char move(char estado, char caracter);
 int match (char *cadena);
+//
 //Funciones	
+//
 void cargar_tabla() {
 	//Llenar todos los campos de la tabla con un valor convención, tipo ‘*’. Va a servir.
-	int i=0, j =0, k =0;
+	int i=0, j =0;
 	for (i=0;i<=ESTADOS_MAX; i++){
-		
+		tabla[i].estado_origen  = '*';
+		for (j=0;j<=SIMBOLOS_MAX;j++){
+			tabla[i].move[j][0]= '*';
+			tabla[i].move[j][1]= '*';
+		}
 	}
+	//Ahora si, a cargar la tabla
 	while (1) {
 		Leer estado
 		if (estado == Enter key) break;
