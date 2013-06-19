@@ -17,13 +17,36 @@ int existe_simbolo (char simbolo);//Devuelve 1 si el simbolo ya existe en la tab
 void cargar_tabla;
 char move(char estado, char caracter);
 int match (char *cadena);
+
+/* Busca en el elemento transici√≥n determinado por el
+primer par√°metro el s√≠mbolo indicado en el segundo.
+Si lo encuentra, devuelve su √≠ndice para que lo sobreescriba,
+si no devuelve, guarda el s{imbolo en el primer casillero libre
+y devuelve el √≠ndice. En cualquier caso siempre devuelve
+un √≠ndice con la posici√≥n de ese s√≠mbolo en el move. */
+int donde_guardar_move(char estado, char simbolo);
+
+/* Busca en la tabla el estado dado. Si lo encuentra devuelve
+el √≠ndice. Sino, guarda ese estado en el primer casillero vac√≠o
+y devuelve su √≠ndice. En cualquer caso siempre devuelve un
+√≠ndice con la posici√≥n de ese estado en la tabla. */
+int donde_guardar_transicion(char estado);
+
 //
 //Funciones	
 //
+
+char leer_char() {
+	char c;
+	c = getchar();
+	fflush(stdin);
+	return c;
+}
+
 void cargar_tabla() {
 	int i=0, j =0, indice_tabla=0;
 	char estado,simbolo,estado_destino;
-	//Llenar todos los campos de la tabla con un valor convenciÛn, tipo ë*í. Va a servir.
+	//Llenar todos los campos de la tabla con un valor convenciÔøΩn, tipo ÔøΩ*ÔøΩ. Va a servir.
 	for (i=0;i<=ESTADOS_MAX; i++){
 		tabla[i].estado_origen  = '*';
 		for (j=0;j<=SIMBOLOS_MAX;j++){
@@ -33,15 +56,19 @@ void cargar_tabla() {
 	}
 	//Ahora si, a cargar la tabla
 	while (1) {
-		getchar(estado);
+		
+		printf("Ingresar estado origen: ");
+		estado = leerchar();
 		if (estado == 13) break;
-		if (!existe_estado(estado) ) { //Si el estado no esta en la lista...
-			indice_tabla += 1
-			tabla[indice_tabla - 1].estado_origen = estado;
-		};
-		//Y si el estado SI estaba? Hay que ponerle valor a indice_tabla
-		getchar(tabla[indice_tabla - 1].move[][0])//Leer simbolo
-		Leer estado_destino.
+		indice_tabla = donde_guardar_transicion(estado);
+		
+		printf("Ingresar simbolo: ");
+		simbolo = leerchar();
+		indice_move = donde_guardar_move(estado, simbolo);
+		tabla[indice_tabla].move[indice_move][0] = simbolo;
+		
+		printf("Ingresar estado destino: ");
+		tabla[indice_tabla].move[indice_move][0] = leerchar();
 	}
 	Leer estado_inicial, estados_aceptacion[ ] //Validando que pertenezcan a la tabla.
 }
@@ -63,10 +90,10 @@ char move(estado, caracter) {
 int match (char *cadena) { //Devuelve 0 si la cadena pasada coincide con el AFD.
 	char estado_actual;
 	estado_actual = move(estado_inicial, cadena [0];
-	if estado_actual == ë*í return 0; //El asterisco es una convenciÛn.
+	if estado_actual == ÔøΩ*ÔøΩ return 0; //El asterisco es una convenciÔøΩn.
 	for (i = 1; i < len(cadena) - 1; i++) {
 		estado_actual = move(estado_actual, cadena[i]);
-		if estado_actual == ë*í return 0;
+		if estado_actual == ÔøΩ*ÔøΩ return 0;
 	}
 	return 1;
 }
