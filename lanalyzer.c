@@ -87,16 +87,28 @@ char move(estado, caracter) {
 	devolver estado al que se llega mediante ese caracter;
 }
 
-int match (char *cadena) { //Devuelve 0 si la cadena pasada coincide con el AFD.
+int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
 	char estado_actual;
 	estado_actual = move(estado_inicial, cadena [0];
-	if estado_actual == �*� return 0; //El asterisco es una convenci�n.
+	if estado_actual == '*' return 0; //El asterisco es una convenci�n.
 	for (i = 1; i < len(cadena) - 1; i++) {
 		estado_actual = move(estado_actual, cadena[i]);
-		if estado_actual == �*� return 0;
+		if estado_actual == '*' return 0;
 	}
 	return 1;
 }
 
-//Luego el main que carga los datos y pregunta por cadenas, las analiza y devuelve el resultado.
 
+/*  MAIN  */
+int main() {
+	char cadena[100];
+	cargar_tabla();
+	while (1) {
+		printf("Ingresar cadena a analizar: ");
+		scanf("%s", &cadena);
+		if (cadena[0] == 13) return 0;
+		if ( match(cadena) ) printf("La cadena %s coincide.\n", cadena);
+		else printf("La cadena %s no coincide. \n", cadena);
+	}
+	return 0;
+}
