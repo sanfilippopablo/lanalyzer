@@ -10,6 +10,7 @@ About the code
   - [ ] Desarrollar pseudocódigo.
   - [ ] Codificar en C.
 - [ ] Desarrollar en C la función move().
+- [ ] Debugging.
 
 About the AFD
 -------------
@@ -17,3 +18,9 @@ About the AFD
 - [ ] Desarrollar su AFND.
 - [ ] Convertir a AFD.
 - [ ] Optimizar AFD.
+
+About the TP
+------------
+- [ ] Documento del desarrollo del AFD óptimo.
+- [ ] Documento del código.
+- [ ] Documento de ejemplos de ejecución.
