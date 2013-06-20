@@ -15,23 +15,11 @@ struct transicion tabla[ESTADOS_MAX]; // La variable tabla es global.
 // ==========
 int existe_estado(char estado); //Devuelve 1 si el estado ya existe en la tabla, else 0.
 int existe_simbolo (char simbolo);//Devuelve 1 si el simbolo ya existe en la tabla, else 0.
-void cargar_tabla;
+void cargar_tabla();
 char move(char estado, char caracter);
 int match (char *cadena);
 char leerchar();
-
-/* Busca en el elemento transición determinado por el
-primer parámetro el símbolo indicado en el segundo.
-Si lo encuentra, devuelve su índice para que lo sobreescriba,
-si no devuelve, guarda el s{imbolo en el primer casillero libre
-y devuelve el índice. En cualquier caso siempre devuelve
-un índice con la posición de ese símbolo en el move. */
 int donde_guardar_move(char estado, char simbolo);
-
-/* Busca en la tabla el estado dado. Si lo encuentra devuelve
-el índice. Sino, guarda ese estado en el primer casillero vacío
-y devuelve su índice. En cualquer caso siempre devuelve un
-índice con la posición de ese estado en la tabla. */
 int donde_guardar_transicion(char estado);
 
 
@@ -85,6 +73,22 @@ int existe_estado (estado) {//Devuelve 1 si el estado ya existe en la tabla, els
       i++;
    }
    return 0;
+}
+
+int donde_guardar_move(char estado, char simbolo) {
+	/* Busca en el elemento transición determinado por el
+	primer parámetro el símbolo indicado en el segundo.
+	Si lo encuentra, devuelve su índice para que lo sobreescriba,
+	si no devuelve, guarda el s{imbolo en el primer casillero libre
+	y devuelve el índice. En cualquier caso siempre devuelve
+	un índice con la posición de ese símbolo en el move. */
+}
+
+int donde_guardar_transicion(char estado) {
+	/* Busca en la tabla el estado dado. Si lo encuentra devuelve
+	el índice. Sino, guarda ese estado en el primer casillero vacío
+	y devuelve su índice. En cualquer caso siempre devuelve un
+	índice con la posición de ese estado en la tabla. */
 }
 
 char move(estado, caracter) {
