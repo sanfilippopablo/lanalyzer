@@ -139,6 +139,7 @@ char move(char estado, char simbolo) {
 	/* Toma un estado y un símbolo y devuelve el estado
 	al cual se llega desde ese estado a través de ese
 	símbolo. Si esto no es posible, devuelve '*'. */
+	printf("[DEBUG] Buscando en la tabla el estado %c.\n", estado);
 	int i_estado = 0, i_simbolo = 0, i = 0;
 	while (tabla[i].estado_origen != '*' && i <= ESTADOS_MAX) {
     	if (tabla[i].estado_origen == estado) break;
@@ -148,9 +149,13 @@ char move(char estado, char simbolo) {
 		/* Error, ese estado no existe. */
 		exit(1);
 	}
+	i_estado = i;
+	printf("[DEBUG] Encontrado. %d.\n", i_estado);
+	printf("[DEBUG] Buscando en esa transicion el simbolo %c.\n", simbolo);
 	while (tabla[i_estado].move[i_simbolo][0] != '*' && i <= SIMBOLOS_MAX) {
 		if (tabla[i_estado].move[i_simbolo][0] == simbolo) {
 			//Ya tengo el i_estado y i_simbolo, devolver estado destino.
+			printf("[DEBUG] Encontrado. %d.\n", i_simbolo);
 			return tabla[i_estado].move[i_simbolo][1];
 		}
 		i++;
@@ -162,11 +167,16 @@ char move(char estado, char simbolo) {
 }
 
 int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
+	printf("[DEBUG] Iniciando match.\n");
 	int i = 0;
 	char estado_actual;
+	printf("[DEBUG] estado_inicial = %c.\n", estado_inicial);
+	printf("[DEBUG] Intentando transicion a través del simbolo %c.\n", cadena[0]);
 	estado_actual = move(estado_inicial, cadena [0]);
 	if (estado_actual == '*') return 0; //El asterisco es una convención.
 	for (i = 1; i < strlen(cadena); i++) {
+		printf("[DEBUG] estado_actual = %c.\n", estado_actual);
+		printf("[DEBUG] Intentando transicion a través del simbolo %c.\n", cadena[i]);
 		estado_actual = move(estado_actual, cadena[i]);
 		if (estado_actual == '*') return 0;
 	}
@@ -182,7 +192,7 @@ int main() {
 	while (1) {
 		printf("Ingresar cadena a analizar: ");
 		scanf("%s", &cadena);
-		if (cadena[0] == '\n') return 0;
+		if (cadena[0] == '\0') return 0;
 		if ( match(cadena) ) printf("La cadena %s coincide.\n", cadena);
 		else printf("La cadena %s no coincide. \n", cadena);
 	}
