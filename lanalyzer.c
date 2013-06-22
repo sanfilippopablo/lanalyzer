@@ -59,12 +59,15 @@ void cargar_tabla() {
 	char estado,simbolo,estado_destino;
 	
 	//Llenar todos los campos de la tabla con un valor convención, tipo '*'. Va a servir.
-	for (i=0;i<=ESTADOS_MAX; i++){
+	for (i=0;i<ESTADOS_MAX; i++){
 		tabla[i].estado_origen  = '*';
-		for (j=0;j<=SIMBOLOS_MAX;j++){
+		for (j=0;j<SIMBOLOS_MAX;j++){
 			tabla[i].move[j][0]= '*';
 			tabla[i].move[j][1]= '*';
 		}
+	}
+	for (i = 0; i < ESTADOS_MAX; ++i) {
+		estados_aceptacion[i] = '*';
 	}
 
 	print_tabla();
@@ -93,6 +96,14 @@ void cargar_tabla() {
 
 	printf("Ingresar estado_inicial: ");
 	estado_inicial = leer_char();
+
+	i = 0;
+	while (1) {
+		printf("Ingresar estado de aceptación: \n");
+		estado = leer_char();
+		if (estado == '\n') break;
+		estados_aceptacion[i] = estado;
+	}
 }
 
 int donde_guardar_move(char estado, char simbolo) {
@@ -180,7 +191,14 @@ int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
 		estado_actual = move(estado_actual, cadena[i]);
 		if (estado_actual == '*') return 0;
 	}
-	return 1;
+
+	//Chequear si el estado final está entre los estados de aceptación.
+	i = 0;
+	while (estados_aceptacion[i] != '*' && i <= ESTADOS_MAX) {
+    	if (estados_aceptacion[i] == estado_actual) return 1;
+    	i++;
+   }
+	return 0;
 }
 
 
