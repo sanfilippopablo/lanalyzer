@@ -1,6 +1,6 @@
 #include <stdio.h>
-#define ESTADOS_MAX 20
-#define SIMBOLOS_MAX 30
+#define ESTADOS_MAX 4
+#define SIMBOLOS_MAX 5
 
 // Estructuras de datos
 // ====================
@@ -31,6 +31,20 @@ int donde_guardar_transicion(char estado);
 // Funciones	
 // =========
 
+void print_tabla() {
+	int i, j;
+	printf("Printing tabla.\n");
+	printf("======================\n");
+	for (i = 0; i < ESTADOS_MAX; ++i)
+	{
+		for (j = 0; j < SIMBOLOS_MAX; ++j)
+		{
+			printf("De %c a %c a través de %c.\n", tabla[i].estado_origen, tabla[i].move[j][1], tabla[i].move[j][0]);
+		}
+	}
+	printf("======================\n");
+}
+
 char leer_char() {
 	/* Devuelve un caracter leído por teclado.
 	Limpia automáticamente el buffer. */
@@ -52,23 +66,31 @@ void cargar_tabla() {
 			tabla[i].move[j][1]= '*';
 		}
 	}
+
+	print_tabla();
 	//Ahora si, a cargar la tabla
 	while (1) {
 		
 		printf("Ingresar estado origen: ");
 		estado = leer_char();
-		if (estado == 13) break;
+		if (estado == '\n') break;
 		indice_tabla = donde_guardar_transicion(estado);
 		
+		print_tabla();
+
 		printf("Ingresar simbolo: ");
 		simbolo = leer_char();
-		indice_move = donde_guardar_move(estado, simbolo);
+		indice_move = donde_guardar_move(indice_tabla, simbolo);
 		tabla[indice_tabla].move[indice_move][0] = simbolo;
+
+		print_tabla();
 		
 		printf("Ingresar estado destino: ");
-		tabla[indice_tabla].move[indice_move][0] = leer_char();
+		tabla[indice_tabla].move[indice_move][1] = leer_char();
+
+		print_tabla();
 	}
-	// Leer estado_inicial, estados_aceptacion[ ] //Validando que pertenezcan a la tabla.
+
 	printf("Ingresar estado_inicial: ");
 	estado_inicial = leer_char();
 }
@@ -91,7 +113,7 @@ int donde_guardar_move(char estado, char simbolo) {
 		/* No hay lugar para más símbolos. */
 		exit(1);
 	}
-	tabla[estado].move[--i][0] = simbolo;
+	tabla[estado].move[i][0] = simbolo;
 	return i;
 }
 
@@ -109,7 +131,7 @@ int donde_guardar_transicion(char estado) {
 		/* No hay lugar para más estados. */
 		exit(1);
 	}
-	tabla[--i].estado_origen = estado;
+	tabla[i].estado_origen = estado;
 	return i;
 }
 
@@ -160,7 +182,7 @@ int main() {
 	while (1) {
 		printf("Ingresar cadena a analizar: ");
 		scanf("%s", &cadena);
-		if (cadena[0] == 13) return 0;
+		if (cadena[0] == '\n') return 0;
 		if ( match(cadena) ) printf("La cadena %s coincide.\n", cadena);
 		else printf("La cadena %s no coincide. \n", cadena);
 	}
