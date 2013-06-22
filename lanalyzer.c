@@ -103,6 +103,17 @@ int donde_guardar_transicion(char estado) {
 	el índice. Sino, guarda ese estado en el primer casillero vacío
 	y devuelve su índice. En cualquer caso siempre devuelve un
 	índice con la posición de ese estado en la tabla. */
+	int i = 0;
+	while (tabla[i].estado_origen != '*' && i <= ESTADOS_MAX) {
+    	if (tabla[i].estado_origen == estado) return i;
+    	i++;
+   }
+   if (i > ESTADOS_MAX) {
+		/* No hay lugar para más estados. */
+		exit(1);
+	}
+	tabla[--i].estado_origen = estado;
+	return i;
 }
 
 char move(estado, caracter) {

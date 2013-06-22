@@ -6,9 +6,9 @@ About the code
 - ~~Desarrollar función donde_guardar_move()~~.
   - ~~Desarrollar pseudocódigo~~.
   - ~~Codificar en C~~.
-- Desarrollar función donde_guardar_transicion().
-  - Desarrollar pseudocódigo.
-  - Codificar en C.
+- ~~Desarrollar función donde_guardar_transicion()~~.
+  - ~~Desarrollar pseudocódigo~~.
+  - ~~Codificar en C~~.
 - Desarrollar en C la función move().
 - Debugging.
 
