@@ -9,7 +9,11 @@ struct transicion {
 	char move[SIMBOLOS_MAX][2]; // move[i][0] representa el simbolo, move[i][1] representa el estado destino.
 };
 
-struct transicion tabla[ESTADOS_MAX]; // La variable tabla es global.
+// Variables globales
+// ==================
+struct transicion tabla[ESTADOS_MAX];
+char estado_inicial;
+char estados_aceptacion[ESTADOS_MAX];
 
 
 // Prototipos
@@ -37,7 +41,7 @@ char leer_char() {
 }
 
 void cargar_tabla() {
-	int i=0, j =0, indice_tabla=0;
+	int i = 0, j = 0, indice_tabla = 0, indice_move;
 	char estado,simbolo,estado_destino;
 	
 	//Llenar todos los campos de la tabla con un valor convención, tipo '*'. Va a servir.
@@ -64,16 +68,9 @@ void cargar_tabla() {
 		printf("Ingresar estado destino: ");
 		tabla[indice_tabla].move[indice_move][0] = leerchar();
 	}
-	Leer estado_inicial, estados_aceptacion[ ] //Validando que pertenezcan a la tabla.
-}
-	
-int existe_estado (estado) {//Devuelve 1 si el estado ya existe en la tabla, else 0.
-   int i = 0;
-   while (tabla[i].estado_origen != '*' && i <= ESTADOS_MAX) {
-      if (tabla[i].estado_origen == estado) return 1;
-      i++;
-   }
-   return 0;
+	// Leer estado_inicial, estados_aceptacion[ ] //Validando que pertenezcan a la tabla.
+	printf("Ingresar estado_inicial: ");
+	estado_inicial = leerchar();
 }
 
 int donde_guardar_move(char estado, char simbolo) {
@@ -116,9 +113,30 @@ int donde_guardar_transicion(char estado) {
 	return i;
 }
 
-char move(estado, caracter) {
-	buscar estado en la tabla;
-	devolver estado al que se llega mediante ese caracter;
+char move(estado, simbolo) {
+	/* Toma un estado y un símbolo y devuelve el estado
+	al cual se llega desde ese estado a través de ese
+	símbolo. Si esto no es posible, devuelve '*'. */
+	int i_estado = 0, i_simbolo = 0;
+	while (tabla[i].estado_origen != '*' && i <= ESTADOS_MAX) {
+    	if (tabla[i].estado_origen == estado) break;
+    	i++;
+   	}
+	if (i > ESTADOS_MAX || tabla[i].estado_origen == '*') {
+		/* Error, ese estado no existe. */
+		exit(1);
+	}
+	while (tabla[i_estado].move[i_simbolo][0] != '*' && i <= SIMBOLOS_MAX) {
+		if (tabla[i_estado].move[i_simbolo][0] == simbolo) {
+			//Ya tengo el i_estado y i_simbolo, devolver estado destino.
+			return tabla[i_estado].move[i_simbolo][1];
+		}
+		i++;
+	}
+	/* Se encontró el estado, pero a través de ese caracter no se
+	llega a ningún lado. Devolver '*'. */
+	return '*';
+
 }
 
 int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
