@@ -7,7 +7,8 @@
 struct transicion {
 	char estado_origen;
 	char move[SIMBOLOS_MAX][2]; // move[i][0] representa el simbolo, move[i][1] representa el estado destino.
-}
+};
+
 struct transicion tabla[ESTADOS_MAX]; // La variable tabla es global.
 
 
@@ -79,9 +80,22 @@ int donde_guardar_move(char estado, char simbolo) {
 	/* Busca en el elemento transición determinado por el
 	primer parámetro el símbolo indicado en el segundo.
 	Si lo encuentra, devuelve su índice para que lo sobreescriba,
-	si no devuelve, guarda el s{imbolo en el primer casillero libre
+	si no devuelve, guarda el símbolo en el primer casillero libre
 	y devuelve el índice. En cualquier caso siempre devuelve
 	un índice con la posición de ese símbolo en el move. */
+	int i = 0:
+	while (tabla[estado].move[i][0] != '*' && i <= SIMBOLOS_MAX) {
+		if (tabla[estado].move[i][0] == simbolo) {
+			return i;
+		}
+		i++;
+	}
+	if (i > SIMBOLOS_MAX) {
+		/* No hay lugar para más símbolos. */
+		exit(1);
+	}
+	tabla[estado].move[--i][0] = simbolo;
+	return i;
 }
 
 int donde_guardar_transicion(char estado) {
