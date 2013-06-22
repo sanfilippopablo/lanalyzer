@@ -21,9 +21,9 @@ char estados_aceptacion[ESTADOS_MAX];
 int existe_estado(char estado); //Devuelve 1 si el estado ya existe en la tabla, else 0.
 int existe_simbolo (char simbolo);//Devuelve 1 si el simbolo ya existe en la tabla, else 0.
 void cargar_tabla();
-char move(char estado, char caracter);
+char move(char, char);
 int match (char *cadena);
-char leerchar();
+char leer_char();
 int donde_guardar_move(char estado, char simbolo);
 int donde_guardar_transicion(char estado);
 
@@ -56,21 +56,21 @@ void cargar_tabla() {
 	while (1) {
 		
 		printf("Ingresar estado origen: ");
-		estado = leerchar();
+		estado = leer_char();
 		if (estado == 13) break;
 		indice_tabla = donde_guardar_transicion(estado);
 		
 		printf("Ingresar simbolo: ");
-		simbolo = leerchar();
+		simbolo = leer_char();
 		indice_move = donde_guardar_move(estado, simbolo);
 		tabla[indice_tabla].move[indice_move][0] = simbolo;
 		
 		printf("Ingresar estado destino: ");
-		tabla[indice_tabla].move[indice_move][0] = leerchar();
+		tabla[indice_tabla].move[indice_move][0] = leer_char();
 	}
 	// Leer estado_inicial, estados_aceptacion[ ] //Validando que pertenezcan a la tabla.
 	printf("Ingresar estado_inicial: ");
-	estado_inicial = leerchar();
+	estado_inicial = leer_char();
 }
 
 int donde_guardar_move(char estado, char simbolo) {
@@ -80,7 +80,7 @@ int donde_guardar_move(char estado, char simbolo) {
 	si no devuelve, guarda el símbolo en el primer casillero libre
 	y devuelve el índice. En cualquier caso siempre devuelve
 	un índice con la posición de ese símbolo en el move. */
-	int i = 0:
+	int i = 0;
 	while (tabla[estado].move[i][0] != '*' && i <= SIMBOLOS_MAX) {
 		if (tabla[estado].move[i][0] == simbolo) {
 			return i;
@@ -113,11 +113,11 @@ int donde_guardar_transicion(char estado) {
 	return i;
 }
 
-char move(estado, simbolo) {
+char move(char estado, char simbolo) {
 	/* Toma un estado y un símbolo y devuelve el estado
 	al cual se llega desde ese estado a través de ese
 	símbolo. Si esto no es posible, devuelve '*'. */
-	int i_estado = 0, i_simbolo = 0;
+	int i_estado = 0, i_simbolo = 0, i = 0;
 	while (tabla[i].estado_origen != '*' && i <= ESTADOS_MAX) {
     	if (tabla[i].estado_origen == estado) break;
     	i++;
@@ -140,12 +140,13 @@ char move(estado, simbolo) {
 }
 
 int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
+	int i = 0;
 	char estado_actual;
-	estado_actual = move(estado_inicial, cadena [0];
-	if estado_actual == '*' return 0; //El asterisco es una convención.
-	for (i = 1; i < len(cadena) - 1; i++) {
+	estado_actual = move(estado_inicial, cadena [0]);
+	if (estado_actual == '*') return 0; //El asterisco es una convención.
+	for (i = 1; i < strlen(cadena); i++) {
 		estado_actual = move(estado_actual, cadena[i]);
-		if estado_actual == '*' return 0;
+		if (estado_actual == '*') return 0;
 	}
 	return 1;
 }
