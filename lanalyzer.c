@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define ESTADOS_MAX 4
 #define SIMBOLOS_MAX 5
 
