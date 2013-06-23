@@ -33,9 +33,9 @@ int donde_guardar_transicion(char);
 char leer_char() {
 	/* Devuelve un caracter leído por teclado.
 	Limpia automáticamente el buffer. */
-	char c;
+	char c, d;
 	c = getchar();
-	fflush(stdin);
+	while((d = getchar()) != '\n' && d != EOF);
 	return c;
 }
 
