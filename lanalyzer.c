@@ -61,13 +61,14 @@ void cargar_tabla() {
 	// Cargar los datos en la tabla.
 	printf("Cargar datos del AFD.\n");
 	while (1) {
-		
+		printf("Ingresando transición.\n");
+
 		printf("Ingresar estado origen (Enter para terminar): ");
 		estado = leer_char();
 		if (estado == '\n') break;
 		indice_tabla = donde_guardar_transicion(estado);
 
-		printf("Ingresar simbolo: ");
+		printf("Ingresar simbolo de transición: ");
 		simbolo = leer_char();
 		indice_move = donde_guardar_move(indice_tabla, simbolo);
 		tabla[indice_tabla].move[indice_move][0] = simbolo;
@@ -81,11 +82,12 @@ void cargar_tabla() {
 
 	i = 0;
 	while (1) {
-		printf("Ingresar estado de aceptación: \n");
+		printf("Ingresar estado de aceptación (Enter para terminar): ");
 		estado = leer_char();
 		if (estado == '\n') break;
 		estados_aceptacion[i] = estado;
 	}
+
 }
 
 int donde_guardar_move(char estado, char simbolo) {
@@ -133,12 +135,12 @@ char move(char estado, char simbolo) {
    	}
 
 	i_estado = i;
-	while (tabla[i_estado].move[i_simbolo][0] != '*' && i <= SIMBOLOS_MAX) {
+	while (tabla[i_estado].move[i_simbolo][0] != '*' && i_simbolo <= SIMBOLOS_MAX) {
 		if (tabla[i_estado].move[i_simbolo][0] == simbolo) {
 			//Ya tengo el i_estado y i_simbolo, devolver estado destino.
 			return tabla[i_estado].move[i_simbolo][1];
 		}
-		i++;
+		i_simbolo++;
 	}
 	/* Se encontró el estado, pero a través de ese caracter no se
 	llega a ningún lado. Devolver '*'. */
@@ -171,6 +173,8 @@ int match (char *cadena) { //Devuelve 1 si la cadena pasada coincide con el AFD.
 int main() {
 	char cadena[100];
 	cargar_tabla();
+	printf("Cargado el AFD.\n\n");
+
 	while (1) {
 		printf("Ingresar cadena a analizar (* para salir): ");
 		scanf("%s", &cadena);
