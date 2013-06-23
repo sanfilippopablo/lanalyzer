@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#define ESTADOS_MAX 4
-#define SIMBOLOS_MAX 5
+#define ESTADOS_MAX 20
+#define SIMBOLOS_MAX 30
 
 // Estructuras de datos
 // ====================
@@ -35,7 +35,7 @@ char leer_char() {
 	Limpia automáticamente el buffer. */
 	char c, d;
 	c = getchar();
-	while((d = getchar()) != '\n' && d != EOF);
+	fflush(stdin);
 	return c;
 }
 
